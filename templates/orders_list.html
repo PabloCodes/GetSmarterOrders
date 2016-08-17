@@ -7,13 +7,12 @@
 		<input ng-model="date" placeholder="Date (dd/mm/yyyy)">
 		<input ng-model="restaurant" placeholder="Restaurant">
 		<input ng-model="website" placeholder="Website">
-		<input ng-model="created_by" placeholder="Your Name">
 		<button>Add to list</button>
 	</form>
 </div>
 
 <ul ng-repeat="order in orders">
 	<li><a href="#/{{order.$id}}">
-	{{order.date}}</a>, {{order.restaurant}}</li>
+	{{order.date}}</a>, {{order.restaurant}} - ordered by: {{order.created_by}}</li>
 </ul>
 

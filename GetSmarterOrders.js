@@ -4,40 +4,43 @@ app.config(function($routeProvider){
   $routeProvider.when('/', {
     controller: 'OrdersListCtrl',
     templateUrl: 'templates/orders_list.html',
-    // resolve: {
-    //       "currentAuth": function($firebaseAuth) {
-    //           return $firebaseAuth().$requireSignIn();
-    //       }
-    //   }
+    resolve: {
+          "currentAuth": function($firebaseAuth) {
+              return $firebaseAuth().$requireSignIn();
+          }
+      }
   }).when('/signin', {
     controller: 'SignInCtrl',
     templateUrl: 'templates/sign_in.html'
   }).when('/:orderID', {
     controller: 'CurrentOrderCtrl',
     templateUrl: 'templates/current_order.html',
-    // resolve: {
-    //       "currentAuth": function($firebaseAuth) {
-    //           return $firebaseAuth().$requireSignIn();
-    //       }
-    //   }
+    resolve: {
+          "currentAuth": function($firebaseAuth) {
+              return $firebaseAuth().$requireSignIn();
+          }
+      }
   })
 })
 
-// app.run(["$rootScope", "$location", function($rootScope, $location) {
-//   $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
-//     // We can catch the error thrown when the $requireSignIn promise is rejected
-//     // and redirect the user back to the home page
-//     if (error === "AUTH_REQUIRED") {
-//       $location.path("/signin");
-//     }
-//   });
-// }]);
+app.run(["$rootScope", "$location", function($rootScope, $location) {
+  $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
+    // We can catch the error thrown when the $requireSignIn promise is rejected
+    // and redirect the user back to the home page
+    if (error === "AUTH_REQUIRED") {
+      $location.path("/signin");
+    }
+  });
+}]);
 
-app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams){
+app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams, currentAuth){
   $scope.isHome = true;
   $scope.atAccount = false;
   $scope.isSignedIn = true;
   $scope.mustSignIn = false;
+
+  $scope.userName = currentAuth.displayName;
+  console.log($scope.userName);
 
   var ref = firebase.database().ref().child("orders");
   $scope.orders = $firebaseArray(ref);
@@ -54,8 +57,6 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
     }
   } 
 
-  
-
   var ref = firebase.database().ref().child("orderItems").child($routeParams.orderID);
   $scope.orderItems = $firebaseArray(ref);
 
@@ -63,30 +64,33 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
     $scope.orderItems.$add({
       item: $scope.item,
       cost: $scope.cost,
-      created_by: $scope.name
+      created_by: $scope.userName
     });
 
   }
 
 })
 
-app.controller('OrdersListCtrl', function($scope, $firebaseArray, $firebaseObject){
+app.controller('OrdersListCtrl', function($scope, $firebaseArray, $firebaseObject, currentAuth){
   $scope.isHome = true;
   $scope.atAccount = false;
   $scope.isSignedIn = true;
   $scope.mustSignIn = false;
 
+  $scope.userName = currentAuth.displayName;
+  console.log($scope.userName);
+
   var ref = firebase.database().ref().child("orders");
   $scope.orders = $firebaseArray(ref);
 
   $scope.newOrderList = function(){
-    console.log("The button works!")
+    // console.log("The button works!")
 
     $scope.orders.$add({
       date: $scope.date,
       restaurant: $scope.restaurant,
       website: $scope.website,
-      created_by: $scope.created_by
+      created_by: $scope.userName
     });
   }
 
