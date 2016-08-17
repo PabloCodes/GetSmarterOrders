@@ -1,8 +1,19 @@
 <div>
 	<h3>{{order.date}}, {{order.restaurant}}, {{order.created_by}}</h3>
 	<h5><a href="{{order.website}}">See menu</a></h5>
+	<h5><a ng-href="#/">Return to order list</a></h5>
 </div>
 
+<div>
+	<form ng-submit="addOrderItem()">
+		<input ng-model="item" placeholder="Item">
+		<input ng-model="cost" placeholder="Cost">
+		<input ng-model="name" placeholder="Your Name">
+		<button>Add to order</button>
+	</form>
+</div>
 
+<ul ng-repeat="orderItem in orderItems">
+	<li> {{orderItem.item}}, {{orderItem.cost}}, {{orderItem.created_by}}</li>
+</ul>
 
-<a ng-href="#/">Return to order list</a>
