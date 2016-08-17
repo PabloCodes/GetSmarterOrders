@@ -9,6 +9,9 @@ app.config(function($routeProvider){
     //           return $firebaseAuth().$requireSignIn();
     //       }
     //   }
+  }).when('/signin', {
+    controller: 'SignInCtrl',
+    templateUrl: 'templates/sign_in.html'
   }).when('/:orderID', {
     controller: 'CurrentOrderCtrl',
     templateUrl: 'templates/current_order.html',
@@ -17,9 +20,6 @@ app.config(function($routeProvider){
     //           return $firebaseAuth().$requireSignIn();
     //       }
     //   }
-  }).when('/signin', {
-    controller: 'SignInCtrl',
-    templateUrl: 'templates/sign_in.html'
   })
 })
 
@@ -44,6 +44,7 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
   console.log($scope.orders);
 
   $scope.currentOrder = function(){
+  // $(window).load(function() {
     for (var i=0; i<$scope.orders.length; i++){
       if ($scope.orders[i].$id === $routeParams.orderID){
         $scope.thisOrder = $scope.orders[i]
@@ -53,7 +54,7 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
     }
   } 
 
-  console.log($scope.thisOrder);
+  
 
   var ref = firebase.database().ref().child("orderItems").child($routeParams.orderID);
   $scope.orderItems = $firebaseArray(ref);
@@ -69,7 +70,7 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
 
 })
 
-app.controller('OrdersListCtrl', function($scope, $firebaseArray){
+app.controller('OrdersListCtrl', function($scope, $firebaseArray, $firebaseObject){
   $scope.isHome = true;
   $scope.atAccount = false;
   $scope.isSignedIn = true;
@@ -91,43 +92,32 @@ app.controller('OrdersListCtrl', function($scope, $firebaseArray){
 
 })
 
-app.controller('SignInCtrl', function($scope, $firebaseAuth){
+app.controller('SignInCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
   var provider = new firebase.auth.GoogleAuthProvider();
-  console.log("WHY?!")
+  var user_ref = firebase.database().ref().child("users");
+  $scope.users = $firebaseArray(user_ref);
 
   $scope.userLogin = function(){
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
-      // The signed-in user info.
       var user = result.user;
-      // ...
+      console.log(user);
+
+      $scope.users.$add({
+        name: user.displayName,
+      })
+      // bring back to home page
+      window.location.href="#/";
+
     }).catch(function(error) {
-      // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // The email of the user's account used.
       var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
-    // ...
+    // see google API for oAuth if you have questions
     });
   }
-
-    //  function onSignIn(googleUser) {
-    //   // Useful data for your client-side scripts:
-    //   var profile = googleUser.getBasicProfile();
-    //   console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-    //   console.log('Full Name: ' + profile.getName());
-    //   console.log('Given Name: ' + profile.getGivenName());
-    //   console.log('Family Name: ' + profile.getFamilyName());
-    //   console.log("Image URL: " + profile.getImageUrl());
-    //   console.log("Email: " + profile.getEmail());
-
-    //   // The ID token you need to pass to your backend:
-    //   var id_token = googleUser.getAuthResponse().id_token;
-    //   console.log("ID Token: " + id_token);
-    // };
 })
 
 
