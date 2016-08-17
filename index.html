@@ -22,12 +22,12 @@
       <h1>GetSmarter Orders</h1>
     </div>
     <div class="col-md-3">
-      <a class="navLink" ng-show="isHome" ng-href="#">View your account</a>
-      <a class="navLink" ng-show="atAccount" ng-href="#">View orders</a>
+      <div ng-show="isHome"><a class="navLink" ng-href="#">View your account</a></div>
+      <div ng-show="atAccount"><a class="navLink" ng-href="#">View orders</a></div>
     </div>
     <div class="col-md-3">
-      <a class="navLink" ng-show="mustSignIn" ng-href="#">Sign In</a>
-      <a class="navLink" ng-show="isSignedIn" ng-href="#">Sign Out</a>
+      <div ng-show="mustSignIn"><a class="navLink" ng-href="#">Sign In</a></div>
+      <div ng-show="isSignedIn"><a class="navLink" ng-href="#">Sign Out</a></div>
     </div>
   </div>
 

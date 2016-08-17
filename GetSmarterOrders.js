@@ -41,9 +41,23 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
 
   var ref = firebase.database().ref().child("orders");
   $scope.orders = $firebaseArray(ref);
+  console.log($scope.orders);
+
+  $scope.currentOrder = function(){
+    for (var i=0; i<$scope.orders.length; i++){
+      if ($scope.orders[i].$id === $routeParams.orderID){
+        $scope.thisOrder = $scope.orders[i]
+        console.log($scope.thisOrder);
+        return $scope.thisOrder;
+      }
+    }
+  } 
+
+  console.log($scope.thisOrder);
 
   var ref = firebase.database().ref().child("orderItems").child($routeParams.orderID);
   $scope.orderItems = $firebaseArray(ref);
+
   $scope.addOrderItem = function(){
     $scope.orderItems.$add({
       item: $scope.item,

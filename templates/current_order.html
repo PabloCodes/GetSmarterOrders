@@ -1,8 +1,10 @@
 <div>
-	<h3>{{order.date}}, {{order.restaurant}}, {{order.created_by}}</h3>
+	<h3>{{thisOrder.date}}, {{thisOrder.restaurant}}, {{thisOrder.created_by}}</h3>
 	<h5><a href="{{order.website}}">See menu</a></h5>
 	<h5><a ng-href="#/">Return to order list</a></h5>
 </div>
+
+<button ng-click="currentOrder()"></button>
 
 <div>
 	<form ng-submit="addOrderItem()">
