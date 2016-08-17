@@ -3,14 +3,20 @@
 <head>
   <title>GetSmarter Orders</title>
 
+<!-- Styling Info -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
   <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700,500|Dosis:200' rel='stylesheet' type='text/css'>
+
+<!-- Google Sign-in Info -->
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="186751831214-o8ufi2nqscnjo5ejk9mikgvremrp4b0a.apps.googleusercontent.com.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 </head>
 
 <body ng-app="OrdersApp">
 
+<!-- Nav Bar -->
   <div class="row navBar">
     <div class="col-md-6">
       <h1>GetSmarter Orders</h1>
@@ -27,6 +33,7 @@
 
   <div class="containter" ng-view></div>
 
+<!-- Angular, Firebase and JS Links -->
   <script src="angular.js"></script>
   <script src="angular-route.js"></script>
 
@@ -44,6 +51,7 @@
     
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>  
   <script src="GetSmarterOrders.js"></script>
+
 
 </body>
 </html>
