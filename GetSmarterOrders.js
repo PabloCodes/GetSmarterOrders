@@ -12,17 +12,17 @@ app.config(function($routeProvider){
   }).when('/signin', {
     controller: 'SignInCtrl',
     templateUrl: 'templates/sign_in.html'
-  }).when('/:orderID', {
-    controller: 'CurrentOrderCtrl',
-    templateUrl: 'templates/current_order.html',
+  }).when('/myaccount', {
+    controller: 'AccountCtrl',
+    templateUrl: 'templates/account.html',
     resolve: {
           "currentAuth": function($firebaseAuth) {
               return $firebaseAuth().$requireSignIn();
           }
       }
-  }).when('/myaccount', {
-    controller: 'AccountCtrl',
-    templateUrl: 'templates/account.html',
+  }).when('/:orderID', {
+    controller: 'CurrentOrderCtrl',
+    templateUrl: 'templates/current_order.html',
     resolve: {
           "currentAuth": function($firebaseAuth) {
               return $firebaseAuth().$requireSignIn();
@@ -61,13 +61,9 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
   var user_ref=firebase.database().ref().child("users").child($scope.uid)
   $scope.user=$firebaseArray(user_ref);
 
-  var user_orders_ref=firebase.database().ref().child("users").child($scope.uid).child("userOrders");
-  $scope.userOrders=$firebaseArray(user_orders_ref);
-
   // console.log($scope.user);
 
   $scope.addOrderItem = function(){
-    console.log("Did it click?");
     $scope.orderItems.$add({
       item: $scope.item,
       cost: $scope.cost,
@@ -76,7 +72,9 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
     });
 
 // Find a way to define userOrders inside of the current user for future account page
-    
+    var user_orders_ref=firebase.database().ref().child("users").child($scope.uid).child("userOrders");
+    $scope.userOrders=$firebaseArray(user_orders_ref);
+
     $scope.userOrders.$add({
       date: $scope.thisOrder.date,
       cost: $scope.cost,
@@ -146,8 +144,12 @@ app.controller('SignInCtrl', function($scope, $firebaseAuth, $firebaseArray, $fi
   }
 })
 
-app.controller('AccountCtrl', function($scope, $firebaseAuth, $firebaseArray){
-
+app.controller('AccountCtrl', function($scope, $firebaseAuth, $firebaseArray, currentAuth){
+  $scope.uid = currentAuth.uid;
+  var user_ref=firebase.database().ref().child("users").child($scope.uid)
+  $scope.user=$firebaseArray(user_ref);
+  var user_orders_ref=firebase.database().ref().child("users").child($scope.uid).child("userOrders");
+  $scope.userOrders=$firebaseArray(user_orders_ref);
 })
 
 
