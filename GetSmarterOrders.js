@@ -68,10 +68,10 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
       item: $scope.item,
       cost: $scope.cost,
       name: $scope.currUserName,
-      created_by: $scope.uid
+      created_by: $scope.uid,
+      paid: false
     });
 
-// Find a way to define userOrders inside of the current user for future account page
     var user_orders_ref=firebase.database().ref().child("users").child($scope.uid).child("userOrders");
     $scope.userOrders=$firebaseArray(user_orders_ref);
 
@@ -81,6 +81,21 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
       owed_to: $scope.thisOrder.name
     });
   }
+
+// Checkbox functions
+  // $("#checkbox-container :checkbox").on("change", function(){
+  //   alert("The checkbox with the ID '" + this.id + "' changed");
+  // });
+
+  var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {};
+  var $checkboxes = $("#checkbox-container :checkbox");
+
+  $checkboxes.on("change", function(){
+    $checkboxes.each(function(){
+      checkboxValues[this.id] = this.checked;
+    });
+    localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
+  });
 
 })
 

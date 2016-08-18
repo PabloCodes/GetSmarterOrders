@@ -12,7 +12,7 @@
 	</form>
 </div>
 
-<ul ng-repeat="orderItem in orderItems">
-	<li> {{orderItem.item}}, {{orderItem.cost}}, {{orderItem.name}}</li>
-</ul>
+<div ng-repeat="orderItem in orderItems">
+	<input type="checkbox" id="{{orderItem}}">{{orderItem.item}}, {{orderItem.cost}}, {{orderItem.name}}
+</div>
 
