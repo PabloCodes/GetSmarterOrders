@@ -14,6 +14,9 @@
 </div>
 
 <div ng-repeat="orderItem in orderItems">
-	<input type="checkbox" id="{{orderItem}}">{{orderItem.item}}, {{orderItem.cost}}, {{orderItem.name}}
+	<div class="lAlign bump2">
+	<input type="checkbox" id="{{orderItem}}">
+	
+	{{orderItem.item}}, {{orderItem.cost}}, {{orderItem.name}}</div>
 </div>
 

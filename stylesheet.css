@@ -33,6 +33,10 @@ h1 {
 .center {
 	text-align: center;
 }
+.center1 {
+	transform: translate(50%);
+	
+}
 .pink {
 	color: #F42684;
 }
@@ -51,9 +55,13 @@ h1 {
 ul > li {
 	list-style: none;
 }
+.lAlign {
+	text-align: left;
+	transform: translate(32%);
+}
 .transform {
-	width: 5%;
-	transform: translate(197%, -275%);
+	width: 25%;
+	transform: translate(20%);
 }
 .transform2 {
 	transform: translate(25%, 50%);
