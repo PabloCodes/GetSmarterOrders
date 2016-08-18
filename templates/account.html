@@ -2,18 +2,18 @@
 
 <table class="orderList">
   <tr>
-    <th>Date</th>
-    <th>Cost</th> 
-    <th>Owed to</th>
+    <th class="bump">Date</th>
+    <th class="bump">Cost</th> 
+    <th class="bump">Owed to</th>
   </tr>
   <tr ng-repeat="order in userOrders | orderBy:'date'">
-    <td>
+    <td class="bump">
     	{{order.date}} 
 	</td>
-    <td>
+    <td class="bump">
     	{{order.cost}}
 	</td> 
-    <td>
+    <td class="bump">
     	{{order.owed_to}}
 	</td>
   </tr>
