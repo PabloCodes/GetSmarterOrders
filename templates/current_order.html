@@ -1,7 +1,7 @@
 <div>
 	<h3>{{thisOrder.date}}, {{thisOrder.restaurant}}, {{thisOrder.name}}</h3>
-	<h5><a href="{{thisOrder.website}}">See menu</a></h5>
-	<h5><a ng-href="#/">Return to order list</a></h5>
+	<h5 class="navLink"><a href="{{thisOrder.website}}" class="navLink">See menu</a></h5>
+	<h5 class="navLink"><a ng-href="#/" class="navLink">Return to order list</a></h5>
 </div>
 
 	<button ng-click="currentOrder()"></button>

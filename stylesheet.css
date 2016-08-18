@@ -1,0 +1,48 @@
+* {
+	background: black;
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+}
+.altFont {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+.container {
+	width: 100%;
+	right: 0px;
+	left: 0px;
+}
+.navBar {
+	color: white;
+}
+.navLink {
+	color: white;
+	text-decoration: none;
+}
+.navLink:hover {
+	color:white;
+	text-decoration: underline;
+}
+h1 {
+	color: white;
+}
+a {
+	color: white;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+.pink {
+	color: #F42684;
+}
+li {
+	list-style: none;
+}
+.transform {
+	width: 5%;
+	transform: translate(197%, -275%);
+}
+.bump {
+	padding-left: 20px;
+}

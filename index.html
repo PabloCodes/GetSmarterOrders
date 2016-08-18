@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GetSmarter Orders</title>
+  <title>getorders</title>
+<!-- our own styles -->
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+
 <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
@@ -14,26 +17,31 @@
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="186751831214-o8ufi2nqscnjo5ejk9mikgvremrp4b0a.apps.googleusercontent.com.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:300,400" rel="stylesheet">
 
 </head>
 
 <body ng-app="OrdersApp"> 
 
 <!-- Nav Bar -->
-  <div class="row navBar">
-    <div class="col-md-6">
-      <h1>GetSmarter Orders</h1>
-    </div>
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-4">
-      <a class="navLink" ng-href="#/myaccount">View your account</a>
-      <a class="navLink" ng-href="#/">View orders</a>
-      <a class="navLink" ng-href="#">Sign Out</a>
+  <div class="row">
+    <div class="navBar">
+      <div class="col-md-6">
+        <h1 class="altFont">get<span class="pink altFont">orders</span></h1>
+        <img src="/assets/Dish.png" class="transform">
+      </div>
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-5">
+        <a class="navLink bump" ng-href="#/myaccount">View your account</a>
+        <a class="navLink bump" ng-href="#/">View orders</a>
+        <a class="navLink bump" ng-href="#">Sign Out</a>
+      </div>
     </div>
   </div>
 
-  <div class="containter" ng-view></div>
+  <div class="container" ng-view></div>
 
 <!-- Angular, Firebase and JS Links -->
   <script src="angular.js"></script>
