@@ -1,0 +1,20 @@
+<h1>Your orders:</h1>
+
+<table class="orderList">
+  <tr>
+    <th>Date</th>
+    <th>Cost</th> 
+    <th>Owed to</th>
+  </tr>
+  <tr ng-repeat="order in userOrders | orderBy:'date'">
+    <td>
+    	{{order.date}} 
+	</td>
+    <td>
+    	{{order.cost}}
+	</td> 
+    <td>
+    	{{order.owed_to}}
+	</td>
+  </tr>
+</table>
