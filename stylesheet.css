@@ -6,11 +6,15 @@
 .altFont {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
+	left: 20px;
 }
 .container {
+	position: absolute;
+	top: 0;
+	bottom: 0;	
+	right: 0;
+	left: 0;
 	width: 100%;
-	right: 0px;
-	left: 0px;
 }
 .navBar {
 	color: white;
@@ -20,29 +24,46 @@
 	text-decoration: none;
 }
 .navLink:hover {
-	color:white;
+	color: white;
 	text-decoration: underline;
 }
 h1 {
 	color: white;
 }
-a {
-	color: white;
-	text-decoration: none;
-}
-a:hover {
-	text-decoration: none;
+.center {
+	text-align: center;
 }
 .pink {
 	color: #F42684;
 }
-li {
+.link {
+	color: #F42684;
+	text-decoration: none;
+}
+.link:hover {
+	color: #F42684;
+	text-decoration: underline;
+}
+.link:visited {
+	color: #F42684;
+	text-decoration: none;
+}
+ul > li {
 	list-style: none;
 }
 .transform {
 	width: 5%;
 	transform: translate(197%, -275%);
 }
+.transform2 {
+	transform: translate(25%, 50%);
+}
+.transform3 {
+	transform: translate(75%, 100%);
+}
 .bump {
-	padding-left: 20px;
+	padding-left: 30px;
+}
+.bump2 {
+	margin-left: 30px;
 }

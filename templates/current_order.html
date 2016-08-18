@@ -1,14 +1,15 @@
-<div>
-	<h3>{{thisOrder.date}}, {{thisOrder.restaurant}}, {{thisOrder.name}}</h3>
-	<h5 class="navLink"><a href="{{thisOrder.website}}" class="navLink">See menu</a></h5>
-	<h5 class="navLink"><a ng-href="#/" class="navLink">Return to order list</a></h5>
+<div class="row">
+	<h3 class="center">{{thisOrder.date}}, {{thisOrder.restaurant}}, {{thisOrder.name}}</h3>
+	<h5 class="center col-md-3 col-md-offset-3"><a href="{{thisOrder.website}}" class="link">See menu</a></h5>
+	<h5 class="center col-md-3"><a ng-href="#/" class="link">Return to order list</a></h5>
+	<div class="col-md-5"></div>
 </div>
 
-<div>
-	<form ng-submit="addOrderItem()">
-		<input ng-model="item" placeholder="Item">
-		<input ng-model="cost" placeholder="Cost">
-		<button>Add to order</button>
+<div class="row">
+	<form ng-submit="addOrderItem()" class="center">
+		<input ng-model="item" placeholder="Item" class="bump2">
+		<input ng-model="cost" placeholder="Cost" class="bump2">
+		<button class="bump2">Add to order</button>
 	</form>
 </div>
 

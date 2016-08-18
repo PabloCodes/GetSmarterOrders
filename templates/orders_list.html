@@ -1,9 +1,9 @@
 <div>
-	<h1>Our Orders</h1>
+	<h1 class="center">Our Orders</h1>
 </div>
 
 <div>
-	<form ng-submit="newOrderList()">
+	<form ng-submit="newOrderList()" class="center">
 		<input ng-model="date" placeholder="Date (dd/mm/yyyy)">
 		<input ng-model="restaurant" placeholder="Restaurant">
 		<input ng-model="website" placeholder="Website">
@@ -11,8 +11,8 @@
 	</form>
 </div>
 
-<ul ng-repeat="order in orders">
-	<li><a href="#/{{order.$id}}">
+<ul class="transform2">
+	<li ng-repeat="order in orders"><a href="#/{{order.$id}}" class="link">
 	{{order.date}}</a>, {{order.restaurant}} - ordered by: {{order.name}}</li>
 </ul>
 
