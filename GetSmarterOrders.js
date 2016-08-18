@@ -20,6 +20,14 @@ app.config(function($routeProvider){
               return $firebaseAuth().$requireSignIn();
           }
       }
+  }).when('/myaccount', {
+    controller: 'AccountCtrl',
+    templateUrl: 'templates/account.html',
+    resolve: {
+          "currentAuth": function($firebaseAuth) {
+              return $firebaseAuth().$requireSignIn();
+          }
+      }
   })
 })
 
@@ -34,16 +42,12 @@ app.run(["$rootScope", "$location", function($rootScope, $location) {
 }]);
 
 app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams, currentAuth){
-  $scope.isHome = true;
-  $scope.atAccount = false;
-  $scope.isSignedIn = true;
-  $scope.mustSignIn = false;
 
-  $scope.userName = currentAuth.displayName;
-  console.log($scope.userName);
+  $scope.uid = currentAuth.uid;
+  $scope.currUserName = currentAuth.displayName;
 
-  var ref = firebase.database().ref().child("orders");
-  $scope.orders = $firebaseArray(ref);
+  var order_ref = firebase.database().ref().child("orders");
+  $scope.orders = $firebaseArray(order_ref);
   console.log($scope.orders);
 
   $scope.currentOrder = function(){
@@ -60,25 +64,38 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
   var ref = firebase.database().ref().child("orderItems").child($routeParams.orderID);
   $scope.orderItems = $firebaseArray(ref);
 
+  var user_ref=firebase.database().ref().child("users").child($scope.uid)
+  $scope.user=$firebaseArray(user_ref);
+
+  var user_orders_ref=firebase.database().ref().child("users").child($scope.uid).child("userOrders");
+  $scope.userOrders=$firebaseArray(user_orders_ref);
+
+  console.log($scope.user);
+
   $scope.addOrderItem = function(){
+    console.log("Did it click?");
     $scope.orderItems.$add({
       item: $scope.item,
       cost: $scope.cost,
-      created_by: $scope.userName
+      name: $scope.currUserName,
+      created_by: $scope.uid
     });
 
+// Find a way to define userOrders inside of the current user for future account page
+    
+    $scope.userOrders.$add({
+      date: $scope.orders.date,
+      cost: $scope.cost,
+      // owed_to: $scope.thisOrder.name
+    });
   }
 
 })
 
 app.controller('OrdersListCtrl', function($scope, $firebaseArray, $firebaseObject, currentAuth){
-  $scope.isHome = true;
-  $scope.atAccount = false;
-  $scope.isSignedIn = true;
-  $scope.mustSignIn = false;
 
   $scope.userName = currentAuth.displayName;
-  console.log($scope.userName);
+  $scope.uid = currentAuth.uid
 
   var ref = firebase.database().ref().child("orders");
   $scope.orders = $firebaseArray(ref);
@@ -90,41 +107,39 @@ app.controller('OrdersListCtrl', function($scope, $firebaseArray, $firebaseObjec
       date: $scope.date,
       restaurant: $scope.restaurant,
       website: $scope.website,
-      created_by: $scope.userName
+      created_by: $scope.uid,
+      name: $scope.userName
     });
+
   }
 
 })
 
 app.controller('SignInCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
   var provider = new firebase.auth.GoogleAuthProvider();
-  var user_ref = firebase.database().ref().child("users");
-  $scope.users = $firebaseArray(user_ref);
+  var users_ref = firebase.database().ref().child("users");
+  $scope.users = $firebaseArray(users_ref);
+
 
   $scope.userLogin = function(){
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
-      var user = result.user;
-      console.log(user);
-
-      $scope.users.$add({
-        name: user.displayName,
-      })
-      // bring back to home page
-      window.location.href="#/";
-
+      console.log("entered function");
+    $scope.authObj = $firebaseAuth();
+    console.log($scope.authObj);
+    $scope.authObj.$signInWithPopup(provider)
+    .then(function(firebaseUser) {
+        console.log("Signed in as:", firebaseUser);
+        // var user = result.user;
+        window.location.href="#/";
     }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-    // see google API for oAuth if you have questions
+        console.error("Authentication failed:", error);
     });
   }
+
 })
 
+app.controller('AccountCtrl', function($scope, $firebaseAuth, $firebaseArray){
 
+})
 
 
 
