@@ -83,7 +83,11 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
   }
 
 // Payment
-
+  $scope.unpaid = true;
+  $scope.paid = false;
+  $scope.paying = function(){
+    $scope.order
+  }
 
 })
 
