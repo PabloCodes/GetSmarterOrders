@@ -13,7 +13,12 @@
 	</form>
 </div>
 
-<div ng-repeat="orderItem in orderItems">
-	{{orderItem.item}}, {{orderItem.cost}}, {{orderItem.name}}<button ng-show="unpaid" ng-click="paying()">Paid!</button><button ng-show="{{orderItem.paid}}">They have paid :)</button>
-</div>
+<ol class="row">
+	<li class="col-md-6 col-md-offset-4" ng-repeat="orderItem in orderItems">
+		<div>
+			 {{orderItem.item}}, {{orderItem.cost}}, {{orderItem.name}}<a class="navLink2 bump3" ng-href="#/{{orderRoute}}/payform/{{orderItem.$id}}"><button ng-show="orderItem.hasPaid == false">Pay your bill!</button></a>
+			<span class="bump3" ng-show="orderItem.hasPaid != false">--They have paid :)</span>
+		</div>
+	</li>
+</ol>
 

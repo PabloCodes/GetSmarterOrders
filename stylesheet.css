@@ -27,6 +27,14 @@
 	color: white;
 	text-decoration: underline;
 }
+.navLink2 {
+	color: white;
+	text-decoration: none;
+}
+.navLink2:hover {
+	color: white;
+	text-decoration: none;
+}
 h1 {
 	color: white;
 }
@@ -74,4 +82,7 @@ ul > li {
 }
 .bump2 {
 	margin-left: 30px;
+}
+.bump3 {
+	margin-left: 15px;
 }

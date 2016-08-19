@@ -28,6 +28,14 @@ app.config(function($routeProvider){
               return $firebaseAuth().$requireSignIn();
           }
       }
+  }).when('/:orderID/payform/:payID', {
+    controller: 'PaymentCtrl',
+    templateUrl: 'templates/payform.html',
+    resolve: {
+          "currentAuth": function($firebaseAuth) {
+              return $firebaseAuth().$requireSignIn();
+          }
+      }
   })
 })
 
@@ -41,7 +49,34 @@ app.run(["$rootScope", "$location", function($rootScope, $location) {
   });
 }]);
 
+app.controller('PaymentCtrl', function($scope, $firebaseArray, $routeParams, currentAuth, $firebaseObject, $location){
+  $scope.payment = $routeParams.payID;
+  $scope.currOrder = $routeParams.orderID;
+ 
+  $scope.uid = currentAuth.uid;
+  $scope.currUserName = currentAuth.displayName;
+
+  var oRef = firebase.database().ref().child("orderItems").child($routeParams.orderID).child($routeParams.payID);
+  $scope.itemOfOrder = $firebaseObject(oRef);
+  console.log($scope.itemOfOrder);
+
+  // Payment
+  $scope.paying = function(){
+    console.log("in the pay f(x)");
+    console.log($scope.itemOfOrder);
+    $scope.itemOfOrder.hasPaid = true;
+    $scope.itemOfOrder.$save();
+
+    // console.log($scope.orderItems[0]);
+    // $scope.orderItems[0].hasPaid = true;
+    // $scope.orderItems.$save();
+    // console.log($scope.orderItems[0].hasPaid)
+    $location.path("/" + $routeParams.orderID);
+  }
+})
+
 app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams, currentAuth, $firebaseObject){
+  $scope.orderRoute = $routeParams.orderID;
 
   $scope.uid = currentAuth.uid;
   $scope.currUserName = currentAuth.displayName;
@@ -69,7 +104,7 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
       cost: $scope.cost,
       name: $scope.currUserName,
       created_by: $scope.uid,
-      paid: false
+      hasPaid: false
     });
 
     var user_orders_ref=firebase.database().ref().child("users").child($scope.uid).child("userOrders");
@@ -83,10 +118,15 @@ app.controller('CurrentOrderCtrl', function($scope, $firebaseArray, $routeParams
   }
 
 // Payment
-  $scope.unpaid = true;
-  $scope.paid = false;
   $scope.paying = function(){
-    $scope.order
+    console.log("in the pay f(x)");
+        
+
+
+    // console.log($scope.orderItems[0]);
+    // $scope.orderItems[0].hasPaid = true;
+    // $scope.orderItems.$save();
+    // console.log($scope.orderItems[0].hasPaid)
   }
 
 })
